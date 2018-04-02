@@ -1,25 +1,51 @@
 import React from "react";
 import Login from "./Login";
-import { Navbar, Nav, NavItem, Grid, Row, Col, FormControl, FormGroup, ControlLabel, Button, Alert, PageHeader } from 'react-bootstrap';
+import Register from "./Register";
+import Homepage from "./Homepage";
+import Signout from "./Signout";
+
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
+
+// import route Components here
+import {
+    Router as Router,
+    Route,
+    Link,
+    Switch,
+    Redirect
+} from 'react-router-dom';
+//import { createBrowserHistory } from 'history';
+//export const history = createBrowserHistory();
+import history from "./history"
 
 const App = () => (
   <div>
     <Navbar>
       <Navbar.Header>
         <Navbar.Brand>
-          <a href="#">App</a>
+          <a href="#">Brand New App</a>
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
         <Nav pullRight>
           <NavItem >
-            Sign Out
+            <Signout/>
           </NavItem>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
-    <Login />
+    <Router history={history}>
+      <div>
+        <Switch>
+        <Route exact={true} path='/' component={Login} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <Route path="/homepage" component={Homepage} />
+        <Redirect to='/' />
+        </Switch>
+      </div>
+    </Router>
   </div>
 );
 

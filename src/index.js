@@ -1,16 +1,15 @@
 import React from "react";
 import { render } from "react-dom";
-import { Navbar, Nav, NavItem, Grid, Row, Col, FormControl, FormGroup, ControlLabel, Button, Alert, PageHeader } from 'react-bootstrap';
 import App from "./components/App";
 import { applyMiddleware, createStore } from "redux";
-import ReduxThunk from 'redux-thunk'
+import thunk from 'redux-thunk'
 import logger from 'redux-logger'
 import { Provider } from "react-redux";
 import reducers from "./reducers";
 
 const store = createStore(
     reducers,
-    applyMiddleware(logger)
+    applyMiddleware(logger, thunk)
 )
 // store.subscribe(() => {
 //   console.log(store.getState());

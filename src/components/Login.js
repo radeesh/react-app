@@ -1,9 +1,9 @@
-import ReactDOM from 'react-dom';
 import React from 'react';
-import { Navbar, Nav, NavItem, Grid, Row, Col, FormControl, FormGroup, ControlLabel, Button, Alert, PageHeader } from 'react-bootstrap';
+import { Grid, Row, Col, FormControl, FormGroup, ControlLabel, Button, Alert } from 'react-bootstrap';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { loginUser } from "../actions/LoginActions";
+import { Link } from 'react-router-dom'
 
 class Login extends React.Component {
   constructor(props) {
@@ -73,6 +73,8 @@ class Login extends React.Component {
                   >
                       Login
                   </Button>
+                  <hr/>
+                  Dont't have an account <Link to="/register">Sign Up Here</Link>
               </form>
           </Col>
       </Row>
