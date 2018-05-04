@@ -1,14 +1,20 @@
-import React from 'react';
+import React  from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import { Link } from 'react-router-dom'
 import { Grid, Row, Col, FormControl, FormGroup, ControlLabel, Button, Alert } from 'react-bootstrap';
+import { registerAccount } from "../actions/index";
 
 class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      password: '',
+      confirmpassword: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange(event) {
     this.setState({
@@ -16,15 +22,37 @@ class Register extends React.Component {
     });
   }
 
-  render() {
+  handleSubmit(event) {
+    event.preventDefault();
+    //this.props.registerAccount(this.props.account)
+    this.props.registerAccount({"Username":this.state.username, "Password":this.state.password, "Email":this.state.email})
+  }
 
+  render() {
+    console.log(this.props.account)
+    var errorMessage = null;
+    if (this.props.account.message !== undefined && this.props.account.message !== ''){
+      errorMessage = <Alert bsStyle="warning">
+        { this.props.account.message }
+      </Alert>
+    }
     return (
     <Grid>
       <Row className="show-grid">
         <Col xs={6} md={4} mdPush={4} xsPush={3}>
+          {errorMessage}
           <form onSubmit={this.handleSubmit}>
+            <FormGroup controlId="username">
+              <ControlLabel>*Username</ControlLabel>
+              <FormControl
+                autoFocus
+                type="username"
+                value={this.state.username}
+                onChange={this.handleChange}
+              />
+            </FormGroup>
             <FormGroup controlId="firstname">
-              <ControlLabel>First Name</ControlLabel>
+              <ControlLabel>First Name (WIP)</ControlLabel>
               <FormControl
                 autoFocus
                 type="firstname"
@@ -33,7 +61,7 @@ class Register extends React.Component {
               />
             </FormGroup>
             <FormGroup controlId="lastname">
-              <ControlLabel>Last Name</ControlLabel>
+              <ControlLabel>Last Name (WIP)</ControlLabel>
               <FormControl
                 value={this.state.lastname}
                 onChange={this.handleChange}
@@ -41,12 +69,28 @@ class Register extends React.Component {
               />
             </FormGroup>
             <FormGroup controlId="email">
-                <ControlLabel>Email</ControlLabel>
+                <ControlLabel>*Email</ControlLabel>
                 <FormControl
                   value={this.state.email}
                   onChange={this.handleChange}
-                  type="lastname"
+                  type="email"
                 />
+            </FormGroup>
+            <FormGroup controlId="password">
+              <ControlLabel>*Password</ControlLabel>
+              <FormControl
+                value={this.state.password}
+                onChange={this.handleChange}
+                type="password"
+              />
+            </FormGroup>
+            <FormGroup controlId="confirmpassword">
+              <ControlLabel>*Confirm Password</ControlLabel>
+              <FormControl
+                value={this.state.confirmpassword}
+                onChange={this.handleChange}
+                type="password"
+              />
             </FormGroup>
             <Button bsStyle="primary" bsSize="small"
               type="submit"
@@ -61,4 +105,12 @@ class Register extends React.Component {
     </Grid>)
   }
 }
-export default Register;
+const mapStateToProps = state => {
+  return {
+    account: state.account
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ registerAccount: registerAccount }, dispatch);
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

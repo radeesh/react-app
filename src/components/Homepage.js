@@ -18,7 +18,7 @@ class Homepage extends React.Component {
     <Grid>
       <Row className="show-grid">
         <Col xs={6} md={4} mdPush={4} xsPush={3}>
-          Welcome to homepage {this.props.login.username}
+          Welcome to homepage {this.props.login.Result}
         </Col>
       </Row>
     </Grid>)
