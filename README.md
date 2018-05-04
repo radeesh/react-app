@@ -1,5 +1,5 @@
 # React App
-Simple AWS Cognito example with React and React Bootstrap UI
+Simple React App
 
 ### Run
 ``` sh
@@ -21,7 +21,6 @@ $ yarn build
 App dev localhost:3000
 
 ### Requirements
-- aws-sdk
 - react
 - react-bootstrap
 - webpack
